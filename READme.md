@@ -15,8 +15,8 @@ The Rental Car App is an app that allows you to choose vehicles that are availab
 
 ### Wireframes
 
-![SOme text](https://chippewaautoandrentals.com/wp-content/uploads/2015/06/car_rental.jpg)
-image.png
+
+
 
 ### Daily Plan
 
@@ -30,7 +30,8 @@ image.png
 | 4 | Style page |
 | 5 | Style Contd. |
 
-### Link to Github
+
+### Github
 https://github.com/coreyhall15/Project2
 
 ### Trello
