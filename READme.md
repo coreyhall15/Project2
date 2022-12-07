@@ -15,6 +15,11 @@ The Rental Car App is an app that allows you to choose vehicles that are availab
 
 ### Wireframes
 
+![lightMode](https://user-images.githubusercontent.com/81767518/147861746-447f2c10-bf73-4b4c-91b0-77ed7d82dc9d.gif)
+<img width="388" alt="lightMode1" src="https://user-images.githubusercontent.com/81767518/147861749-e9d725ac-2f03-4dba-a9ba-5b259d682994.png">
+<img width="388" alt="lightMode2" src="https://user-images.githubusercontent.com/81767518/147861751-fa4d251f-1038-496e-a396-384f6670fc94.png">
+
+
 
 
 
