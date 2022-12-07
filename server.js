@@ -8,7 +8,7 @@ const mongoose = require("mongoose")
 
 //create express app
 const app = express()
-
+const Cars = require('./models/cars.js');
 //establise mongoose connection
 mongoose.connect(process.env.DATABASE_URL)
 
@@ -23,6 +23,14 @@ app.use(morgan("dev"))
 app.use("/static", express.static("public"))
 app.use(express.urlencoded({ extended: true}))
 app.use(methodOverride("_method"))
+app.use('/cars', CarRouter)
+app.use('/user', UserRouter)
+app.use(session({
+    secret: process.env.SECRET,
+    store: MongoStore.create({mongoUrl: process.env.DATABASE_URL}),
+    saveUninitialized: true,
+    resave: false,
+  }))
 
 //routes and routers
 app.get("/" , (req, res) => {
@@ -30,10 +38,11 @@ app.get("/" , (req, res) => {
 })
 
 
+
+
+
+
 //Start the server
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => console.log(`listening on PORT`))
-
-
-
-
+  
