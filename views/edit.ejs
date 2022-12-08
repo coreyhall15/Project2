@@ -7,13 +7,18 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Edit Cars</h1>
-    <form action="/pokemon/<%=index%>?_method=PUT" method="post">
+    <h1>Edit Car</h1>
+    <form action="/car/<%=index%>?_method=PUT" method="post">
       <!--  NOTE: the form is pre-populated with values for the server-->
       NAME: <input type="text" name="name" value="<%=data.name%>" /><br />
       IMG: <input type="text" name="img" value="<%=data.img%>" /><br />
       TYPE: <input type="text" name="type" value="<%=data.type%>" /><br />
-      
+      HP: <input type="text" name="stats" value="<%=data.stats.hp%>" /><br />
+      ATTACK: <input type="text" name="stats" value="<%=data.stats.attack%>" /><br />
+      DEFENSE: <input type="text" name="stats" value="<%=data.stats.defense%>" /><br />
+      SPATTACK: <input type="text" name="stats" value="<%=data.stats.spattack%>" /><br />
+      SPADEFENSE: <input type="text" name="stats" value="<%=data.stats.spadefense%>" /><br />
+      DEFENSE: <input type="text" name="stats" value="<%=data.stats.speed%>" /><br />
       <br />
       <input type="submit" value="Submit Changes" />
 </body>

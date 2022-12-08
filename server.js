@@ -1,48 +1,142 @@
-//Import
-require("dotenv").config()
-const express = require("express")
+/////////////////////////////////////////
+///////IMPORT DEPENDENCIES
+////////////////////////////////////////
+require("dotenv").config()//Load ENV Variables
 const morgan = require("morgan")
 const methodOverride = require("method-override")
 const mongoose = require("mongoose")
+const express = require('express');
+const PORT = process.env.PORT
 
 
-//create express app
-const app = express()
-const Cars = require('./models/cars.js');
-//establise mongoose connection
-mongoose.connect(process.env.DATABASE_URL)
 
-//mongoose connection events
+/////////////////////////////////////////
+///////ESTABLISH DATABASE CONNECTION
+////////////////////////////////////////
+const DATABASE_URL = process.env.DATABASE_URL
+const CONFIG = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}
+
+
+
+
+//Establish connection
+mongoose.connect(DATABASE_URL, CONFIG)
+
+
+//Events for when connection opens/disconnects/errors
 mongoose.connection
-.on("open", () => console.log("Connected to Mongo"))
-.on("close", () => console.log("Disconnected to Mongo"))
-.on("error", (error) => console.log(error))
+.on("open", ()=> console.log("connected to Mongoose"))
+.on("close", ()=> console.log("disconnected to Mongoose"))
+.on("error", (error)=> console.log("error"))
 
-//register middleware
-app.use(morgan("dev"))
-app.use("/static", express.static("public"))
-app.use(express.urlencoded({ extended: true}))
+
+
+/////////////////////////////////////////
+///////OUR MODEL
+////////////////////////////////////////
+
+
+
+
+
+/////////////////////////////////////////
+///////CREATE APP OBJECT
+////////////////////////////////////////
+const app = express();
+const Cars = require('./models/cars.js');
+
+
+//Public Folder
+app.use(express.static('public'))
+
+/////////////////////////////////////////
+///////MIDDLEWARE
+////////////////////////////////////////
+app.use(express.urlencoded( {extended: true} ))
 app.use(methodOverride("_method"))
-app.use('/cars', CarRouter)
-app.use('/user', UserRouter)
-app.use(session({
-    secret: process.env.SECRET,
-    store: MongoStore.create({mongoUrl: process.env.DATABASE_URL}),
-    saveUninitialized: true,
-    resave: false,
-  }))
 
-//routes and routers
-app.get("/" , (req, res) => {
-    res.send("<h1>Server is Working<h1>")
-})
+// INDEX
+app.get('/car', (req, res) => {
+    res.render('index.ejs', { data: Car });
+    });
+    
+    // NEW
+    app.get("/car/new", (req, res) => {
+        res.render("new.ejs")
+      })
+      
+      // DELETE
+    
+      app.delete("/car/:id", (req, res) => {
+        console.log("delete route")
+        console.log(req.params.id)
+        Car.splice(req.params.id,1);
+            res.redirect("/car")
+      })
+    
+      // UPDATE
+    app.put("/car/:id", (req, res) => {
+      console.log(req.body)
+      console.log(req.body.stats[0])
+      
+    
+      Car[req.params.id] =   {
+        name:req.body.name,
+        img:req.body.img,
+        type:req.body.type,
+        stats:{
+        hp:req.body.stats[0],
+        attack:req.body.stats[1],
+        defense:req.body.stats[2],
+        spattack:req.body.stats[3],
+        spdefense:req.body.stats[4],
+        speed:req.body.stats[5]
+      }}
+    
+      console.log(req.body)
+      //Pokemon[req.params.id] =req.body.pk
+      res.redirect(`/car/${req.params.id}`);
+    })
 
 
-
-
-
-
-//Start the server
-const PORT = process.env.PORT || 3000
-app.listen(PORT, () => console.log(`listening on PORT`))
+    // CREATE
+app.post("/car", (req, res) => {
+    console.log(req.body)
+    let newCar = {
+      name: req.body.name,
+      img:req.body.img,
+      type:req.body.type,
+      stats:{
+        hp:req.body.hp,
+        attack:req.body.attack,
+        defense:req.body.defense,
+        spattack:req.body.spattack,
+        spdefense:req.body.spdefense,
+        speed:req.body.speed
+    }
+  }
+    Car.push(newCar)
+    res.redirect("/car")
+    })
   
+  
+  // EDIT
+  app.get("/car/:id/edit", (req, res) => {
+      res.render("edit.ejs", { data: Car[req.params.id],
+      index:req.params.id })
+  
+   
+  })
+  
+  
+  
+  // SHOW
+  app.get('/car/:id', (req, res) => {
+  res.render('show.ejs', { data: Car[req.params.id],
+                          index: req.params.id });
+  });
+  
+app.listen(PORT, () => console.log('Bands will make her dance on port: ${PORT}'))
