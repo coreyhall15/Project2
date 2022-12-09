@@ -46,7 +46,7 @@ mongoose.connection
 ///////CREATE APP OBJECT
 ////////////////////////////////////////
 const app = express();
-const Cars = require('./models/cars.js');
+const Car = require('./models/cars.js');
 
 
 //Public Folder
@@ -60,7 +60,7 @@ app.use(methodOverride("_method"))
 
 // INDEX
 app.get('/car', (req, res) => {
-    res.render('index.ejs', { data: Car });
+    res.render('index.ejs', { data: Car});
     });
     
     // NEW
@@ -88,13 +88,10 @@ app.get('/car', (req, res) => {
         img:req.body.img,
         type:req.body.type,
         stats:{
-        hp:req.body.stats[0],
-        attack:req.body.stats[1],
-        defense:req.body.stats[2],
-        spattack:req.body.stats[3],
-        spdefense:req.body.stats[4],
-        speed:req.body.stats[5]
-      }}
+          price:req.body.hp,
+          
+      }
+    }
     
       console.log(req.body)
       //Pokemon[req.params.id] =req.body.pk
@@ -110,12 +107,8 @@ app.post("/car", (req, res) => {
       img:req.body.img,
       type:req.body.type,
       stats:{
-        hp:req.body.hp,
-        attack:req.body.attack,
-        defense:req.body.defense,
-        spattack:req.body.spattack,
-        spdefense:req.body.spdefense,
-        speed:req.body.speed
+        price:req.body.hp,
+        
     }
   }
     Car.push(newCar)
