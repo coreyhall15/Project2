@@ -1,5 +1,7 @@
 body{
-    background-color: rgba(180, 238, 31, 0.8);
+    background-color: rgba(248, 249, 251, 0.778);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    
 }
 
 .parent {
@@ -9,10 +11,10 @@ body{
 }
 
 .child{
-    display: block;
+    display: inline-flexbox;
 }
 
 img{
-    width: 200px;
-    height: 200px;
+    width: 550px;
+    height: 400px;
 }
