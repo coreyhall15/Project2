@@ -43,7 +43,7 @@ https://github.com/coreyhall15/Project2
 https://trello.com/b/1kR0Qrqg/rental-car-app
 
 ### Link to Render
-https://rental-car-app.onrender.com
+https://rental-car-app.onrender.com/car
 
 
 ##### By Corey Hall
